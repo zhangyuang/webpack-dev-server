@@ -1,4 +1,6 @@
-import { log } from './log';
+import { createLogger } from './log';
+
+const log = createLogger();
 
 function reloadApp(
   { hotReload, hot, liveReload },

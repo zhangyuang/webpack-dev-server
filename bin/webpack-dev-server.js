@@ -2,7 +2,7 @@
 
 'use strict';
 
-/* eslint-disable no-shadow, no-console */
+/* eslint-disable no-shadow */
 
 const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
@@ -15,6 +15,8 @@ const processOptions = require('../lib/utils/processOptions');
 const createLogger = require('../lib/utils/createLogger');
 const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
+
+const log = createLogger(null);
 
 let server;
 const serverData = {
@@ -34,14 +36,15 @@ if (importLocal(__filename)) {
 }
 
 try {
+  throw new Error();
   require.resolve('webpack-cli');
 } catch (err) {
-  console.error('The CLI moved into a separate package: webpack-cli');
-  console.error(
+  log.error('The CLI moved into a separate package: webpack-cli');
+  log.error(
     "Please install 'webpack-cli' in addition to webpack itself to use the CLI"
   );
-  console.error('-> When using npm: npm i -D webpack-cli');
-  console.error('-> When using yarn: yarn add -D webpack-cli');
+  log.error('-> When using npm: npm i -D webpack-cli');
+  log.error('-> When using yarn: yarn add -D webpack-cli');
 
   process.exitCode = 1;
 }
@@ -90,7 +93,6 @@ function startDevServer(config, options) {
     compiler = webpack(config);
   } catch (err) {
     if (err instanceof webpack.WebpackOptionsValidationError) {
-      const log = createLogger(undefined);
       log.error(colors.error(options.stats.colors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
@@ -104,7 +106,6 @@ function startDevServer(config, options) {
     serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
-      const log = createLogger(undefined);
       log.error(colors.error(options.stats.colors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
