@@ -48,6 +48,9 @@
         "warning"
       ]
     },
+    "disableInfo": {
+      "type": "boolean"
+    },
     "compress": {
       "type": "boolean"
     },
