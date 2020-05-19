@@ -11,7 +11,7 @@ module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
     if (/aliyun\.com/.test(window.location.href)) {
-      url = `${window.location.host.replace(3000, 8000)  }/sockjs-node`;
+      url = `https://${window.location.host.replace(3000, 8000)}/sockjs-node`;
     }
 
     this.sock = new SockJS(url);
