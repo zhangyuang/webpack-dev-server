@@ -3,17 +3,17 @@
 /* eslint-disable
   no-unused-vars
 */
-const path = require('path')
+const path = require('path');
 const SockJS = require('sockjs-client/dist/sockjs');
 const BaseClient = require('./BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
-    if (/aliyun\.com/.test(location.href)) {
-      url = location.href.replace(3000, 8000) + 'sockjs-node'
+    if (/aliyun\.com/.test(window.location.href)) {
+      url = `${window.location.host.replace(3000, 8000)  }/sockjs-node`;
     }
-    
+
     this.sock = new SockJS(url);
 
     this.sock.onerror = (err) => {
